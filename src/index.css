@@ -1,0 +1,231 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+ul.todo_list {
+  text-align: left;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.todo_list li .important {
+  margin: 0 8px;
+  color: darkred;
+  display: inline-block;
+}
+
+.todo_list li .deadline {
+  background-color: rgb(120, 153, 164);
+  color: white;
+  border-radius: 3px;
+  padding: 2px 4px;
+  margin-left: 10px;
+}
+
+.todo_list li {
+  padding: 12px;
+  padding-left: 40px;
+}
+
+.todo_list li:hover {
+  filter: brightness(90%);
+  cursor: pointer;
+}
+
+.todo_list>li:nth-child(even) {
+  background-color: rgb(174, 216, 229);
+}
+
+.todo_list>li:nth-child(odd) {
+  background-color: rgb(51, 138, 168);
+}
+
+.todo_list li.done {
+  background-color: rgb(226, 226, 226);
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+}
+
+.todo_list li .btn-del {
+  margin: 0 10px;
+}
+
+header nav ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 0;
+}
+
+header nav ul li {
+  display: inline-block;
+}
+
+header nav a {
+  text-decoration: none;
+  display: block;
+  color: black;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: rgb(174, 216, 229);
+}
+
+.Layout {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.Layout main {
+  flex: 1;
+}
+
+main {
+  padding: 10px;
+}
+
+footer {
+  text-align: center;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.CreateTask {
+  width: 50%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 12px;
+}
+
+.CreateTask h2 {
+  text-align: center;
+}
+
+.CreateTask label {
+  width: 100%;
+  display: flex;
+  gap: 6px;
+}
+
+.CreateTask label input {
+  flex-grow: 1;
+}
+
+.CreateTask label input[type="checkbox"] {
+  flex-grow: 0;
+}
+
+.reviews-page {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.reviews-list {
+  padding: 0;
+  margin: 0 0 16px 0;
+}
+
+.review-item {
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  padding: 8px;
+  margin-bottom: 10px;
+  background: #f8f8f8;
+}
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 400px;
+}
+
+.review-form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 15px;
+  gap: 2px;
+}
+
+.review-form input,
+.review-form textarea,
+.review-form select {
+  padding: 4px;
+  font-size: 15px;
+  border: 1px solid #bbb;
+  border-radius: 3px;
+}
+
+.review-form button {
+  width: 100px;
+  padding: 6px;
+  font-size: 15px;
+  border-radius: 3px;
+  border: 1px solid #bbb;
+  background: #e0f0ff;
+  cursor: pointer;
+}
+
+.git-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.git-form {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.git-input {
+  padding: 6px;
+  font-size: 16px;
+}
+
+.git-btn {
+  margin-left: 8px;
+  padding: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.git-error {
+  color: red;
+  margin-bottom: 10px;
+}
+
+.git-user-card {
+  display: flex;
+  gap: 24px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  align-items: flex-start;
+}
+
+.git-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.git-user-info > div {
+  margin-bottom: 8px;
+}
