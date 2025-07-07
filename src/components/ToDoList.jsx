@@ -1,31 +1,39 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import ToDoItem from "./ToDoItem";
 import CreateTask from "./CreateTask";
+import { ToDoContext } from "../App";
 
 export default function ToDoList({ tasksList }) {
-
-    const [list, setList] = useState(tasksList);
+    const todoCtx = useContext(ToDoContext);
+    const isGlobal = !tasksList;
+    const [list, setList] = useState(tasksList || []);
 
     function removeItem(id) {
-        // list = list.filter(i => i.id !== id);
-        setList(list.filter(i => i.id !== id));
+        if (isGlobal) {
+            todoCtx.removeTask(id);
+        } else {
+            setList(list.filter(i => i.id !== id));
+        }
     }
     function createItem(task) {
-        // generate new ID
-        const newId = list.length > 0 ? Math.max(...list.map(i => i.id)) + 1 : 1;
-        // add new task with new ID
-        task.id = newId;
-        setList([...list, task]);
+        if (isGlobal) {
+            todoCtx.addTask(task);
+        } else {
+            const newId = list.length > 0 ? Math.max(...list.map(i => i.id)) + 1 : 1;
+            task.id = newId;
+            setList([...list, task]);
+        }
     }
+    const renderList = isGlobal ? todoCtx.tasks : list;
 
     return (
         <>
             {
-                list.length === 0 ?
+                renderList.length === 0 ?
                     <p>No tasks!</p>
                     :
                     <ul className="todo_list">
-                        {list.map(task => <ToDoItem key={task.id} {...task} removeFunction={removeItem} />)}
+                        {renderList.map(task => <ToDoItem key={task.id} {...task} removeFunction={removeItem} />)}
                     </ul>
             }
             <CreateTask onCreate={createItem} />

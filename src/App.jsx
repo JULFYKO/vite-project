@@ -1,16 +1,15 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, createContext } from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
 import ToDoList from './components/ToDoList'
 import Counter from './components/Counter'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from './components/Home'
 import NoPage from './components/NoPage'
 import Layout from './components/Layout'
-import CreateTask from './components/CreateTask'
 import ReviewsPage from './components/ReviewsPage'
 import Git from './components/Git'
+
+export const ToDoContext = createContext();
 
 const TASKS = [
   { id: 1, title: 'First task', important: false, complete: false, date: '01.04.2023' },
@@ -29,21 +28,48 @@ const OTHER_TASKS = [
 ]
 
 function App() {
+  // Глобальний стан задач (для list1)
+  const [tasks, setTasks] = useState(TASKS);
+
+  // Функція для оновлення задач (оновлення статусу, видалення, додавання)
+  const updateTask = (id, changes) => {
+    setTasks(tasks =>
+      tasks.map(task =>
+        task.id === id ? { ...task, ...changes } : task
+      )
+    );
+  };
+
+  const removeTask = (id) => {
+    setTasks(tasks => tasks.filter(task => task.id !== id));
+  };
+
+  const addTask = (task) => {
+    const newId = tasks.length > 0 ? Math.max(...tasks.map(i => i.id)) + 1 : 1;
+    setTasks([...tasks, { ...task, id: newId }]);
+  };
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="counter" element={<Counter />} />
-          <Route path="create" element={<CreateTask />} />
-          <Route path="list1" element={<ToDoList tasksList={TASKS} />} />
-          <Route path="list2" element={<ToDoList tasksList={OTHER_TASKS} />} />
-          <Route path="reviews" element={<ReviewsPage />} />
-          <Route path="git" element={<Git />} />
-          <Route path="*" element={<NoPage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <ToDoContext.Provider value={{
+      tasks,
+      updateTask,
+      removeTask,
+      addTask
+    }}>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="counter" element={<Counter />} />
+            <Route path="list1" element={<ToDoList />} />
+            <Route path="list2" element={<ToDoList tasksList={OTHER_TASKS} />} />
+            <Route path="reviews" element={<ReviewsPage />} />
+            <Route path="git" element={<Git />} />
+            <Route path="*" element={<NoPage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </ToDoContext.Provider>
   )
 }
 
